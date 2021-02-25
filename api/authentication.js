@@ -1,10 +1,6 @@
 const axios = require('axios')
-
-function randomInRange(start,end){
-    return Math.floor(Math.random() * (end - start + 1) + start);
-}
-
-module.exports = async (cookie, image) => {
+const {normalizeName} = require('../helper/random')
+module.exports = async (cookie, name, id, image) => {
     const headers = {
         'authority': 'goldlion.tv',
         'accept': 'application/json, text/javascript, */*; q=0.01',
@@ -20,7 +16,12 @@ module.exports = async (cookie, image) => {
         'cookie': `think_var=en-us; PHPSESSID=${cookie}`
     }
 
-    const data = `data%5Breal_name%5D=NGUYEN+HUNG+QUANG&data%5Bidentity%5D=1258${randomInRange(11, 99)}9364&data%5Bimgs%5D=${image}`
+    let data = `data[real_name]=${normalizeName(name, '+', false)}&data[identity]=${id}&data[imgs]=${image}`
+
+    console.log({data})
+    // data = encodeURIComponent(data)
+    //
+    // console.log({data})
     const options = {
         url: 'https://goldlion.tv/index/User/authentication',
         method: 'POST'

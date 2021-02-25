@@ -9,6 +9,7 @@ const SMSCode = require('./api/sms-code-register')
 const SMSCodeAddBank = require('./api/sms-code-addbank')
 const Upload = require('./api/upload-base64-paycode')
 const Authentication = require('./api/authentication')
+const ocr = require('./ocr')
 
 const {randomIPHeader, randomCookie, randomName} = require('./helper/random')
 
@@ -191,10 +192,14 @@ let run = async (i) => {
                     await new Promise(resolve => setTimeout(resolve, 2000))
 
                     console.log("Go to Auth page")
+                    const imagePath = './frontIDCard.png'
+
+                    response = await ocr(imagePath)
+                    let info = response.data[0]
                     response = await Upload(goldCookie)
 
                     let {data, message} = response
-                    response = await Authentication(goldCookie, data)
+                    response = await Authentication(goldCookie, info.name, info.id, data)
 
                     const {code: codeAuthen} = response
 

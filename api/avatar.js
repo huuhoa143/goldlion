@@ -13,7 +13,7 @@ module.exports = async (cookie, image) => {
         'sec-fetch-mode': 'cors',
         'referer': 'https://goldlion.tv/index/user/avatar.html',
         'accept-language': 'en-US,en;q=0.9',
-        'cookie': cookie
+        'cookie': `think_var=en-us; PHPSESSID=${cookie}`
     }
 
     const data = `data%5Bimgs%5D=${image}`
