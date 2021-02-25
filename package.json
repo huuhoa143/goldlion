@@ -1,0 +1,24 @@
+{
+  "name": "goldlion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "crypto-random-string": "^3.3.1",
+    "fs-extra": "^9.1.0",
+    "puppeteer": "^2.0.0",
+    "puppeteer-extra": "^3.1.17",
+    "puppeteer-extra-plugin-anonymize-ua": "^2.2.16",
+    "puppeteer-extra-plugin-stealth": "^2.7.5",
+    "randexp": "^0.5.3",
+    "random-ipv4": "^1.0.2",
+    "random-useragent": "^0.5.0"
+  }
+}
