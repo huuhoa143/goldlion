@@ -22,7 +22,7 @@ const randomPhone = () => {
 }
 
 const randomCookie = () => {
-    return `think_var=en-us; PHPSESSID=j9d2s${randomString(10)}uj00csn2b43`
+    return `think_var=en-us; PHPSESSID=k245scgllcfjlfq4mab3834qf4`
 }
 
 const randomIPHeader = () => {

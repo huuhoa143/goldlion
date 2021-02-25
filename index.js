@@ -26,7 +26,9 @@ setImmediate(async () => {
 
     let {data, message} = response
 
-    response = await Avatar(ipHeader, cookie, data)
+    console.log({data})
+    console.log({cookie})
+    response = await Avatar(ipHeader, data)
 
     console.log({response})
 
