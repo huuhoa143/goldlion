@@ -1,6 +1,10 @@
 const axios = require('axios')
-const {normalizeName} = require('../helper/random')
-module.exports = async (cookie, name, id, image) => {
+
+const _createPayload = (name, id, imagePath) => {
+    return `${encodeURI(`data[real_name]=${name}&data[identity]=${id}&data[imgs]=`)}${encodeURIComponent(imagePath)}`
+}
+
+module.exports = async (ipHeader, cookie, name, id, image) => {
     const headers = {
         'authority': 'goldlion.tv',
         'accept': 'application/json, text/javascript, */*; q=0.01',
@@ -12,21 +16,19 @@ module.exports = async (cookie, name, id, image) => {
         'sec-fetch-mode': 'cors',
         'sec-fetch-dest': 'empty',
         'referer': 'https://goldlion.tv/index/user/authentication.html',
-        'accept-language': 'vi-VN,vi;q=0.9',
-        'cookie': `think_var=en-us; PHPSESSID=${cookie}`
+        'accept-language': 'en-US,en;q=0.9,vi;q=0.8,zh-CN;q=0.7,zh;q=0.6',
+        'cookie': cookie,
+        ...ipHeader
     }
 
-    let data = `data[real_name]=${normalizeName(name, '+', false)}&data[identity]=${id}&data[imgs]=${image}`
+    const data = _createPayload(name, id, image)
 
-    console.log({data})
-    // data = encodeURIComponent(data)
-    //
-    // console.log({data})
     const options = {
         url: 'https://goldlion.tv/index/User/authentication',
         method: 'POST'
     }
 
-    const response = await axios({method: options.method || 'GET', url: options.url, headers, data})
+    const response = await axios({ method: options.method || 'GET', url: options.url, headers, data })
+
     return response.data
 }

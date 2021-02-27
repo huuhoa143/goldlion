@@ -36,8 +36,7 @@ module.exports = async (image) => {
                 resolve(response.data)
             })
             .catch(function (error) {
-                console.log(error)
-                return reject(error)
+                resolve(error.response.data)
             })
     })
 }

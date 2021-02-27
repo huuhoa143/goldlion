@@ -6,7 +6,7 @@ const {normalizeName} = require('./helper/random')
 const imageToBase64 = require('image-to-base64');
 
 setImmediate(async () => {
-    const imagePath = './frontIDCard.png'
+    const imagePath = './1 (1).jpg'
     // const imageBase64 = await imageToBase64(imagePath)
     //
     // console.log({imageBase64})
@@ -22,13 +22,21 @@ setImmediate(async () => {
     //
     // console.log({response})
 
-    const name = "LÊ QUANG HƯNG"
-    const id = '118918414'
-    const image = 'public/uploads/paycode/2021022516515078036.jpeg'
-    console.log(normalizeName(name, "+", false))
-    let data = `data[real_name]=${normalizeName(name, '+', false)}&data[identity]=${id}&data[imgs]=${image}`
-    data = encodeURIComponent(data)
-
-    console.log({data})
+    // const name = "LÊ QUANG HƯNG"
+    // const id = '118918414'
+    // const image = 'public/uploads/paycode/2021022516515078036.jpeg'
+    // console.log(normalizeName(name, "+", false))
+    // let data = `data[real_name]=${normalizeName(name, '+', false)}&data[identity]=${id}&data[imgs]=${image}`
+    // data = encodeURIComponent(data)
+    //
+    // console.log({data})
     // console.log(await ocr(imagePath))
+    const response = await ocr(imagePath)
+    console.log({response})
+    const [info] = response.data
+
+    console.log(info)
+    // const { name, id } = info
+    //
+    // console.log({name, id})
 })

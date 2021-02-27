@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-module.exports = async () => {
+module.exports = async (ipHeader, cookie, phone, password = "Password") => {
     const headers = {
         'authority': 'goldlion.tv',
         'accept': 'application/json, text/javascript, */*; q=0.01',
@@ -13,10 +13,11 @@ module.exports = async () => {
         'sec-fetch-dest': 'empty',
         'referer': 'https://goldlion.tv/index/login/index.html',
         'accept-language': 'vi-VN,vi;q=0.9',
-        'cookie': 'think_var=en-us'
+        'cookie': cookie,
+        ...ipHeader
     }
 
-    const data = `data%5Bmobile%5D=0964433730&data%5Bpassword%5D=yeunam140699&data%5Bremember_pwd%5D=0`
+    const data = `data%5Bmobile%5D=${phone}&data%5Bpassword%5D=${password}&data%5Bremember_pwd%5D=0`
     const options = {
         url: 'https://goldlion.tv/index/login/index',
         method: 'POST'

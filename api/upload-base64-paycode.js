@@ -1,6 +1,10 @@
-const axios = require('axios')
 
-module.exports = async (cookie, base64) => {
+const axios = require('axios')
+const imageToBase64 = require('image-to-base64')
+
+module.exports = async (cookie, imagePath) => {
+    const base64 = await imageToBase64(imagePath)
+
     const headers = {
         'authority': 'goldlion.tv',
         'accept': 'application/json, text/javascript, */*; q=0.01',
@@ -13,7 +17,7 @@ module.exports = async (cookie, base64) => {
         'sec-fetch-dest': 'empty',
         'referer': 'https://goldlion.tv/index/user/avatar.html',
         'accept-language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
-        'cookie': `PHPSESSID=${cookie}; think_var=en-us`
+        'cookie': cookie
     }
 
     const data = `data%5Bimg%5D=data%3Aimage%2Fpng%3Bbase64%2C=${encodeURIComponent(base64)}`
@@ -23,6 +27,7 @@ module.exports = async (cookie, base64) => {
         method: 'POST'
     }
 
-    const response = await axios({method: options.method || 'GET', url: options.url, headers, data})
+    const response = await axios({ method: options.method || 'GET', url: options.url, headers, data })
+
     return response.data
 }
