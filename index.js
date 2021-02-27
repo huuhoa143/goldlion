@@ -6,7 +6,7 @@ const _delay = async ms => {
 const {readFile} = require('./helper/file-utils')
 setImmediate(async () => {
     const reference = '28811006'
-    const total = 23
+    const total = 20
 
     const password = 'Pa55w0rds'
     const phones = await register(total, password, reference)
