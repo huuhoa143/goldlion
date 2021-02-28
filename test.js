@@ -4,6 +4,22 @@ const Avatar = require('./api/avatar')
 const {readFile} = require('./helper/file-utils')
 const {normalizeName} = require('./helper/random')
 const imageToBase64 = require('image-to-base64');
+const CMND = require('./generateCMND')
+const globby = require('globby')
+const path = require('path')
+const fs = require('fs')
+const cryptoRandomString = require('crypto-random-string')
+
+const _scanFiles = async (dir) => {
+
+    return globby(dir, {
+        expandDirectories: {
+            extensions: ['png', 'jpg']
+        }
+    });
+}
+
+const getUserInput = require('./helper/getUserInput')
 
 setImmediate(async () => {
     const imagePath = './1 (1).jpg'
@@ -31,12 +47,37 @@ setImmediate(async () => {
     //
     // console.log({data})
     // console.log(await ocr(imagePath))
-    const response = await ocr(imagePath)
-    console.log({response})
-    const [info] = response.data
-
-    console.log(info)
+    // const response = await ocr(imagePath)
+    // console.log({response})
+    // const [info] = response.data
+    //
+    // console.log(info)
+    //
     // const { name, id } = info
     //
     // console.log({name, id})
+
+    // const cmnd = await CMND("123456789", 'NGUYEN THI HOAN', '12/06/1999')
+    //
+    // let response = await Upload('PHPSESSID=ol68ch8tbrpn1dmo2gtkio955p; think_var=en-us;', cmnd)
+    //
+    // console.log({response})
+
+    // const dirFolder = '/Users/bingxu/Documents/Ảnh/cmt'
+    //
+    // const images = await _scanFiles(dirFolder)
+    //
+    // for (let i = 0; i < images.length; i++) {
+    //     console.log("Running image: ", images[i])
+    //     const currentPathImage = images[i]
+    //     const newPathImage = path.join(__dirname, "CMND_NEW", `cmnd_${i}.jpg`)
+    //     fs.renameSync(currentPathImage, newPathImage)
+    // }
+
+    const {imageName, nameCard, idCard} = await getUserInput()
+    const imageURL = path.join(__dirname, `/CMND_NEW/${imageName}`)
+
+    console.log({imageURL, nameCard, idCard})
+
+    // console.log(cryptoRandomString({ length: 6, type: 'numeric' }))
 })

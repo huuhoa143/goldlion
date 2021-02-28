@@ -1,0 +1,12 @@
+<svg width="800" height="120" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="svg_1_blur">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g>
+        <title>Layer 1</title>
+        <text filter="url(#svg_1_blur)" style="cursor: move;" font-style="normal" font-weight="normal" xml:space="preserve" font-family="monospace" font-size="70"
+              id="svg_2" y="92.453125" x="7.5" stroke-width="1" stroke="#000" fill="#2e2d2b" opacity="0.8">{number}</text>
+    </g>
+</svg>

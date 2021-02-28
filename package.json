@@ -12,17 +12,24 @@
   "dependencies": {
     "axios": "^0.21.1",
     "crypto-random-string": "^3.3.1",
+    "fabric": "^4.3.1",
     "form-data": "^4.0.0",
     "fs-extra": "^9.1.0",
     "globby": "^11.0.2",
     "image-to-base64": "^2.1.1",
     "lodash": "^4.17.21",
+    "prompts": "^2.4.0",
     "puppeteer": "^2.0.0",
     "puppeteer-extra": "^3.1.17",
     "puppeteer-extra-plugin-anonymize-ua": "^2.2.16",
     "puppeteer-extra-plugin-stealth": "^2.7.5",
     "randexp": "^0.5.3",
     "random-ipv4": "^1.0.2",
-    "random-useragent": "^0.5.0"
+    "random-useragent": "^0.5.0",
+    "sharp": "^0.27.2"
+  },
+  "devDependencies": {
+    "@types/fabric": "^4.2.1",
+    "@types/sharp": "^0.23.0"
   }
 }

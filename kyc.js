@@ -44,7 +44,7 @@ module.exports = async (phones, password) => {
         console.log({codeAddPayment, msgAddPayment})
         await _delay(1500)
 
-        const images = await _scanFiles('./cmnd')
+        const images = await _scanFiles('./cmnd-02')
 
         let checkKYC = false
         while (checkKYC === false) {

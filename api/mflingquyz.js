@@ -1,6 +1,7 @@
 const axios = require('axios')
 
-module.exports = async () => {
+module.exports = async (cookie) => {
+    console.log({cookie})
     const headers = {
         'authority': 'goldlion.tv',
         'content-length': '0',
@@ -12,8 +13,8 @@ module.exports = async () => {
         'sec-fetch-mode': 'cors',
         'sec-fetch-dest': 'empty',
         'referer': 'https://goldlion.tv/index/index/index.html',
-        'accept-language': 'vi-VN,vi;q=0.9',
-        'cookie': 'think_var=en-us; PHPSESSID=j9d2spmpfqaa60iuj00csn2b43'
+        'accept-language': 'vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7',
+        'cookie': cookie
     }
 
     const options = {

@@ -24,7 +24,9 @@ module.exports = async (cookie, imagePath) => {
 
     const options = {
         url: 'https://goldlion.tv/api/Upload/upload_base64_paycode',
-        method: 'POST'
+        method: 'POST',
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
     }
 
     const response = await axios({ method: options.method || 'GET', url: options.url, headers, data })

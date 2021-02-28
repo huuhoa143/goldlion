@@ -4,16 +4,21 @@ module.exports = async () => {
     const response = await prompts([
         {
             type: 'text',
-            name: 'cookie',
-            message: 'Cookie?'
+            name: 'imageName',
+            message: 'Image Name?'
         },
         {
             type: 'text',
-            name: 'captcha',
-            message: 'Captcha?'
+            name: 'nameCard',
+            message: 'NameInCard?'
+        },
+        {
+            type: 'text',
+            name: 'idCard',
+            message: 'IDInCard?'
         },
     ])
 
-    const { cookie, captcha } = response
-    return { cookie, captcha }
+    const { imageName, nameCard, idCard } = response
+    return { imageName, nameCard, idCard }
 }

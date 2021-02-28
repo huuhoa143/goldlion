@@ -1,14 +1,7 @@
-const { access } = require('fs')
-const addPayment = require('./api/add-payment')
 const puppeteer = require('puppeteer')
 const iPhone6 = puppeteer.devices['iPhone 6']
-
 const CheckAcc = require('./api/mflingquyz')
-const ocr = require("./api/ocr")
-const uploadImage = require("./api/upload-base64-paycode")
-const authentication = require('./api/authentication')
-const { normalizeName } = require('./helper/random')
-
+const fs = require('fs')
 const _parseOtp = string => string.match(/[0-9]{4}/gmi)[0]
 const REGISTER_URL = 'https://goldlion.tv/index/login/register.html'
 const LOGIN_URL = 'https://goldlion.tv/index/login/index.html'
@@ -24,27 +17,9 @@ const OTP_INPUT = 'body > div > div > div.weui-cells.weui-cells_form > div:nth-c
 const REGISTER_BUTTON = '#but'
 const LOGIN_BUTTON = 'body > div > div > div:nth-child(6) > div'
 const ACCEPT_NOTI_BUTTON = '#layui-m-layer0 > div.layui-m-layermain > div > div > div.layui-m-layerbtn > span'
-
-const _getAccounts = () => {
-    const content = require('fs').readFileSync('./account_76317888.txt').toString()
-
-    const lines = content
-        .split('\n')
-        .filter(line => {
-            if (typeof line === 'string' && line.length > 0) {
-                return line
-            }
-        })
-
-    const accounts = lines
-        .map(line => {
-            const [phone, cookie] = line.split('|')
-
-            return { phone, cookie }
-        })
-
-    return accounts
-}
+const RECEIVE_HOUSE_BUTTON = '#mfbut1'
+const RECEIVE_HOUSE_CONFIRM_BUTTON = '#layui-m-layer2 > div.layui-m-layermain > div > div > div.layui-m-layerbtn > span:nth-child(2)'
+const RECEIVE_HOUSE_CONFIRM_2_BUTTON = '#layui-m-layer3 > div.layui-m-layermain > div > div > div.layui-m-layerbtn > span:nth-child(2)'
 
 const _type = async (puppeteerObject, selector, content) => {
     await puppeteerObject.focus(selector)
@@ -64,14 +39,15 @@ const _parseCookieHeader = cookies => cookies.map(cookie => `${cookie.name}=${co
 
 
 setImmediate(async () => {
-    const accounts = _getAccounts()
+    let content = require('fs').readFileSync('./account_0411946896.txt').toString()
+    let accounts = content.split("\n")
 
-    for (let i = 24; i <= accounts.length; i++) {
-        console.log(`${i + 1}/${accounts.length}`)
+    for (let i = 0; i < accounts.length - 1; i++) {
+        console.log(`${i}/${accounts.length}`)
 
-        const { phone, cookie } = accounts[i]
+        const phone = accounts[i]
 
-        if (phone && cookie) {
+        if (phone) {
 
             const browser = await puppeteer.launch({
                 headless: true,
@@ -91,13 +67,15 @@ setImmediate(async () => {
 
             await _click(page, LOGIN_BUTTON)
 
-            await _delay(3000)
+            await _delay(2000)
 
             await _click(page, ACCEPT_NOTI_BUTTON)
+            await _delay(1000)
 
-            await _delay(3000)
+            await _click(page, RECEIVE_HOUSE_BUTTON)
+            await _click(page, RECEIVE_HOUSE_CONFIRM_BUTTON)
 
-            await page.goto(ADD_BANK_URL)
+            // await page.goto(ADD_BANK_URL)
 
             const cookies = await page.cookies()
 
@@ -107,12 +85,19 @@ setImmediate(async () => {
 
             let response = await CheckAcc(cookieHeader)
 
+            let {code, msg} = response
+
+            if (code === 1) {
+                await _delay(2000)
+                await _click(page, RECEIVE_HOUSE_CONFIRM_2_BUTTON)
+
+                await fs.appendFileSync(`./account_success.txt`, phone + '\n')
+            }
             console.log(response)
+
+            await browser.close()
+
         }
     }
 
 })
-
-/**
- * /Users/bingxu/Documents/go/src/crawlData/UET/1702/17020637/frontIDCard.png
- */
